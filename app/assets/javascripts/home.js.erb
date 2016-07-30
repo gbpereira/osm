@@ -1,0 +1,68 @@
+
+<%# encoding: utf-8 %>
+
+var DOM = {}
+
+$(document).ready(function() {
+  DOM.DEFAULT_LAT = -23.533773;
+  DOM.DEFAULT_LNG = -46.625290;
+  DOM.DEFAULT_ZOOM = 4;
+  DOM.form = $('#map-form');
+
+  DOM.map = new RMMap('map', DOM.DEFAULT_LAT, DOM.DEFAULT_LNG, DOM.DEFAULT_ZOOM);
+  // DOM.router = new RMRouter();
+  // DOM.layer = new RMLayer();
+
+
+
+  function _init () {
+    // DOM.layer.addTo(DOM.map)
+  }
+
+
+  function _events () {
+    DOM.form.on('change', '[data-marker-name]', function (aEvent) {
+      _findGeolocalization($(this).parent().parent());
+    });
+
+    DOM.form.on('click', '[data-route-create]', function (aEvent) {
+      _traceRoute();
+    });
+  };
+
+
+  function _findGeolocalization (parent) {
+    var locationItemLat = parent.find('[data-lat]'),
+        locationItemLng = parent.find('[data-lng]'),
+        locationItemAddress = parent.find('[data-marker-name]'),
+        data = { search: locationItemAddress.val() },
+        url = "/api/v1/geocoder";
+
+    $.ajax({
+      type: 'GET',
+      data: data,
+      url: url,
+      dataType: 'json',
+      success: function(data) {
+        var status = data['status'];
+
+        if (status == "success") {
+          var result = data['data'];
+          var location = result['geometry']['location'];
+          var locationFormatted = result['formatted_address'];
+          locationItemLat.val(location.lat);
+          locationItemLng.val(location.lng);
+          locationItemAddress.val(locationFormatted);
+        }
+      }
+    })
+  };
+
+  function _traceRoute () {
+    new RMRoute(DOM.form, DOM.map);
+    // DOM.route.addTo(DOM.map);
+  }
+
+  _init();
+  _events();
+});

@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+}
+
+.block {
+  display: block;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.mdl-textfield {
+  width: 500px;
+}
+
+.leaflet-top.leaflet-right {
+  display: none;
+}
