@@ -18,6 +18,6 @@ body {
   width: 500px;
 }
 
-.leaflet-top.leaflet-right {
+.leaflet-top.leaflet-right .leaflet-routing-container.leaflet-routing-container-hide {
   display: none;
 }
