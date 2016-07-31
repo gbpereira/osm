@@ -12,8 +12,8 @@ function RMRoute (aWaypoints) {
           ]
         },
         plan: L.Routing.plan(_waypoints, {
-          createMarker: function(i, wp) {
-            return L.marker(wp.latLng, {draggable: false}).bindPopup(wp.name);
+          createMarker: function(i, waypoint) {
+            return L.marker(waypoint.latLng, {draggable: false}).bindPopup(waypoint.name);
           }
         }),
         router: _router,
