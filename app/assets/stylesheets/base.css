@@ -26,20 +26,24 @@ body {
   box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px !important;
 }
 
-.map-panel.route-panel {
+.mdl-textfield {
+  padding: 0;
+}
+
+/*.map-panel.route-panel {
   background-color: white;
   padding: 10px;
-  z-index: 1;
+  z-index: 9999;
   border: 1px solid #cecece;
 }
 
 .map-panel.marker-panel {
   background-color: white;
   padding: 10px;
-  z-index: 2;
+  z-index: 9998;
   border: 1px solid #cecece;
-}
-
+}*/
+/*
 .map-panel h5 {
   margin: 0px 0 16px;
-}
+}*/
