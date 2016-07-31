@@ -31,8 +31,18 @@ function RMGeocoder () {
       url: _url,
       dataType: 'json',
       success: function(response) {
+        console.log(response);
         if (_success(response['status'])) {
-          _pasteDate(response, _locationItemLat, _locationItemLng, _locationItemAddress, _callback);
+          // _pasteDate(response, _locationItemLat, _locationItemLng, _locationItemAddress, _callback);
+          locationData = response['data'];
+          location = locationData['geometry']['location'];
+          locationFormatted = locationData['formatted_address'];
+
+          aLocationItemLat.val(location.lat);
+          aLocationItemLng.val(location.lng);
+          aLocationItemAddress.val(locationFormatted);
+
+          // aCallback();
         }
       }
     });

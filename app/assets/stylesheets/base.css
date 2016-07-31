@@ -14,10 +14,18 @@ body {
   float: right;
 }
 
-.mdl-textfield {
+/*.mdl-textfield {
   width: 500px;
-}
+}*/
 
 .leaflet-top.leaflet-right .leaflet-routing-container.leaflet-routing-container-hide {
   display: none;
+}
+
+.leaflet-popup-content-wrapper {
+  border-right: 1px solid rgba(0, 0, 0, 0.0980392) !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.0980392) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.0980392) !important;
+  border-radius: 2px !important;
+  box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px !important;
 }
