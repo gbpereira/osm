@@ -4,3 +4,4 @@
 //= require ./rm_marker
 //= require ./rm_route
 //= require ./rm_router
+//= require ./location-box

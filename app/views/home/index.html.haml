@@ -6,13 +6,9 @@
 = javascript_include_tag 'home'
 = content_for :title, 'OSM'
 
--# .mdl-grid
-  -# .map-container.mdl-cell.mdl-cell--8-col{style: 'height: 500px; width: 1000px; border: 1px solid #cecece;'}
-  -#   #map{style: 'height: 100%;'}
--# #map-form.mdl-cell.mdl-cell--4-col{style: 'margin: 10px;'}
 #map-form.right{style: 'margin: 10px;'}
   .mdl-grid
-    .mdl-cell.mdl-cell--6-col{style: 'background-color: white; padding: 10px; z-index: 1; border: 1px solid #cecece;'}
+    .mdl-cell.mdl-cell--6-col.map-panel.route-panel
       %h5 Rota
       .block{'data-route': ''}
         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.right{'data-map-input': ''}
@@ -33,7 +29,7 @@
         %input{type: 'hidden', 'data-lat': ''}
         %input{type: 'hidden', 'data-lng': ''}
 
-    .mdl-cell.mdl-cell--6-col{style: 'background-color: white; padding: 10px; z-index: 2; border: 1px solid #cecece;'}
+    .mdl-cell.mdl-cell--6-col.map-panel.marker-panel
       %h5 Pontos
       .block{'data-marker': ''}
         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.right{'data-map-input': ''}
@@ -53,6 +49,3 @@
           %label.mdl-textfield__label{for: 'input-4'} Endereço
         %input{type: 'hidden', 'data-lat': ''}
         %input{type: 'hidden', 'data-lng': ''}
-
-    -# .mdl-grid.mdl-cell.mdl-cell--12-col
-    -#   %button.mdl-button.mdl-js-button.mdl-button--primary.right{'data-marker-remove': ''} Remover marker
