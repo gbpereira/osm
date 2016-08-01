@@ -8,107 +8,17 @@ $(document).ready(function() {
   DOM.DEFAULT_LNG = -46.625290;
   DOM.DEFAULT_ZOOM = 4;
   DOM.form = $('#map-form');
-
-  DOM.map = new RMMap('fullmap', DOM.DEFAULT_LAT, DOM.DEFAULT_LNG, DOM.DEFAULT_ZOOM);
-  DOM.route = new RMRoute([]);
-
-  DOM.RMGeocoder = new RMGeocoder();
-  DOM.marker = null;
+  DOM.map = new RMMap('map', DOM.DEFAULT_LAT, DOM.DEFAULT_LNG, DOM.DEFAULT_ZOOM);
 
   function _init () {
-    DOM.route.addTo(DOM.map);
-
     DOM.form.find('[data-marker]').each(function (aIndex) {
-      var that = $(this);
-      new LocationBox(that, DOM.map);
-    });
-  }
-
-  function _events () {
-    // DOM.form.on('change', '[data-marker-input]', function (aEvent) {
-    //   _findGeolocalization($(this).parent().parent(), _addMarkers);
-    //   // DOM.RMGeocoder.call($(this).parent().parent(), _addMarkers);
-    // });
-
-    DOM.form.on('change', '[data-route-input]', function (aEvent) {
-      _findGeolocalization($(this).parent().parent(), _traceRoute);
-      // DOM.RMGeocoder.call($(this).parent().parent(), _traceRoute);
+      new LocationBox($(this), DOM.map);
     });
 
-    // DOM.form.on('click', '[data-marker-remove]', function (aEvent) {
-    //   DOM.map.removeLayer(DOM.marker);
-    // });
-  };
-
-  function _findGeolocalization (parent, callback) {
-    var locationItemLat = parent.find('[data-lat]'),
-        locationItemLng = parent.find('[data-lng]'),
-        locationItemAddress = parent.find('[data-location-name]'),
-        data = { search: locationItemAddress.val() },
-        url = "/api/v1/geocoder";
-
-    $.ajax({
-      type: 'GET',
-      data: data,
-      url: url,
-      dataType: 'json',
-      success: function(data) {
-        var status = data['status'];
-
-        if (status == "success") {
-          var result = data['data'];
-          var location = result['geometry']['location'];
-          var locationFormatted = result['formatted_address'];
-
-          locationItemLat.val(location.lat);
-          locationItemLng.val(location.lng);
-          locationItemAddress.val(locationFormatted);
-
-          callback();
-        }
-      }
-    })
-  };
-
-  function _traceRoute () {
-    var waypoints = [];
-
-    DOM.form.find('[data-route]').each(function () {
-      var that = $(this),
-          lat = that.find('[data-lat]').val(),
-          lng = that.find('[data-lng]').val(),
-          locationName = that.find('[data-location-name]').val();
-
-      if (lat !== '' && lng !== '') {
-        waypoints.push({latLng: L.latLng(lat, lng), name: locationName});
-      };
+    DOM.form.find('[data-route]').each(function (aIndex) {
+      new RouteBox($(this), DOM.map);
     });
-
-    DOM.route.setWaypoints(waypoints);
   };
-
-  // function _addMarkers () {
-  //   var waypoints = [];
-  //
-  //   DOM.form.find('[data-marker]').each(function (aIndex) {
-  //     var that = $(this),
-  //         lat = that.find('[data-lat]').val(),
-  //         lng = that.find('[data-lng]').val(),
-  //         locationName = that.find('[data-location-name]').val();
-  //
-  //     if (lat !== '' && lng !== '') {
-  //       waypoints.push({latLng: L.latLng(lat, lng), name: locationName});
-  //     };
-  //   });
-  //
-  //   var waypointsLength = waypoints.length;
-  //
-  //   for (var i = 0; i < 1; i++) {
-  //     DOM.marker = new RMMarker(waypoints[i].latLng, waypoints[i].name);
-  //     DOM.marker.addTo(DOM.map);
-  //   };
-  // };
 
   _init();
-  _events();
 });
