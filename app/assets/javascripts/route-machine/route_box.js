@@ -5,39 +5,20 @@ function RouteBox (aContainer, aMap) {
       _locationItemLng = _container.find('[data-lng]'),
       _locationItemAddress = _container.find('[data-location-name]'),
       _map = aMap,
-      _route = new RMRoute([]);
-      // _cachedPosition = {lat: _locationItemLat.val(), lng: _locationItemLng.val()};
+      _route = new RMRoute([]),
+      _rlayer = null;
 
   function _events () {
     _container.on('change', '[data-route-input]', function (aEvent) {
       _findGeolocalization();
-      // if (mustRemove()) {
-      //
-      // } else {
-      //   _findGeolocalization();
-      // };
     });
   };
 
-  // DOM.form.on('change', '[data-route-input]', function (aEvent) {
-  //   _findGeolocalization($(this).parent().parent(), _traceRoute);
-  //   // DOM.RMGeocoder.call($(this).parent().parent(), _traceRoute);
-  // });
-
-
-
   function _init () {
     _route.addTo(_map);
-    // _setInitialMarker();
-    console.log('initialized');
+    // _rlayer = L.layerGroup([_route]);
+    // _map.addLayer(_rlayer);
   };
-
-  // function _setInitialMarker () {
-  //   if (_notBlankMarker()) {
-  //     _route = new RMMarker(_cachedPosition, _locationItemAddress.val());
-  //     console.log('initial marker added');
-  //   };
-  // };
 
   function _findGeolocalization () {
     var data = { search: _locationItemAddress.val() },
@@ -61,14 +42,6 @@ function RouteBox (aContainer, aMap) {
           _locationItemAddress.val(locationFormatted);
 
           _traceRoute();
-          // if (_changedLocation(location)) {
-          //   _route.updateLocation(location, locationFormatted);
-          //   console.log('marker updated');
-          // } else {
-          //   _route = new RMMarker(location, locationFormatted);
-          //   _route.addTo(_map);
-          //   _cachedPosition = location;
-          // }
         }
       }
     })
@@ -88,18 +61,21 @@ function RouteBox (aContainer, aMap) {
       };
     });
 
-    console.log('route traced');
+    // console.log(_route.getWaypoints());
+    // console.log('routed');
+    // _map.removeLayer(_rlayer);
 
-    _route.setWaypoints(waypoints);
+    // _route = new RMRoute(waypoints);
+    // _route.getPlan().setWaypoints([]);
+    // $('.leaflet-zoom-animated').empty();
+    _route.getPlan().setWaypoints(waypoints);
+
+    // _rlayer = L.layerGroup([_route]);
+    // _map.addLayer(_rlayer);
+    // _route.update();
+
+    // console.log(_route.getWaypoints());
   };
-
-  // function _changedLocation(aLocation) {
-  //   return (_cachedPosition.lat !== '' && _cachedPosition.lng !== '' && _cachedPosition.lat !== aLocation.lat && _cachedPosition.lng !== aLocation.lng);
-  // };
-  //
-  // function _notBlankMarker () {
-  //   return (_cachedPosition.lat !== '' && _cachedPosition.lng !== '');
-  // };
 
   _init();
   _events();
